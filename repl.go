@@ -10,11 +10,21 @@ import (
 type commands struct {
 	name        string
 	description string
-	callback    func() error
+	callback    func(*config) error
 }
 
 func getCommands() map[string]commands {
 	return map[string]commands{
+		"map": {
+			name:        "map",
+			description: "Shows a list of next 20 location areas",
+			callback:    commandMap,
+		},
+		"mapb": {
+			name:        "mapb",
+			description: "Shows a list of previous 20 location areas",
+			callback:    commandMapb,
+		},
 		"help": {
 			name:        "help",
 			description: "Shows a list of commands and their usage",
@@ -33,7 +43,7 @@ func standardizeInput(input string) []string {
 	return strings.Fields(input)
 }
 
-func startREPL() {
+func startREPL(cfg *config) {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for {
@@ -54,7 +64,7 @@ func startREPL() {
 			continue
 		}
 
-		err := command.callback()
+		err := command.callback(cfg)
 		if err != nil {
 			fmt.Printf("Error: %v\n", err)
 			return
