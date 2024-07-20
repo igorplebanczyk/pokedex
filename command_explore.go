@@ -7,8 +7,7 @@ func commandExplore(cfg *config, location string) error {
 		return fmt.Errorf("location is required")
 	}
 
-	endpoint := "/location-area/" + location
-	resp, err := cfg.pokeapiClient.GetLocationAreaDetails(&endpoint)
+	resp, err := cfg.pokeapiClient.GetLocationAreaDetails(&location)
 	if err != nil {
 		return err
 	}
