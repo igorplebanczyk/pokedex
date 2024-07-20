@@ -32,6 +32,10 @@ func (c *Client) GetPokemon(url *string) (PokemonResp, error) {
 	}
 	defer resp.Body.Close()
 
+	if resp.StatusCode == 404 {
+		return PokemonResp{}, fmt.Errorf("no such pokemon exists")
+	}
+
 	if resp.StatusCode > 299 {
 		return PokemonResp{}, fmt.Errorf("received status code %d", resp.StatusCode)
 	}
