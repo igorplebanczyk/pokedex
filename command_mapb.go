@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func commandMapb(cfg *config) error {
+func commandMapb(cfg *config, arg string) error {
 	if cfg.previousLocationAreasURL == nil {
 		println("You're already at the beginning of the list.")
 		return nil

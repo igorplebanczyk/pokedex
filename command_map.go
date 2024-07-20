@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func commandMap(cfg *config) error {
+func commandMap(cfg *config, arg string) error {
 	resp, err := cfg.pokeapiClient.GetLocationAreas(cfg.nextLocationAreasURL)
 	if err != nil {
 		return err
