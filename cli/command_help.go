@@ -1,8 +1,10 @@
-package main
+package cli
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func commandHelp(cfg *config, arg string) error {
+func commandHelp(_ *Config, _ string) error {
 	commands := getCommands()
 
 	fmt.Printf("-------------------------")

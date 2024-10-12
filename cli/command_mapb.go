@@ -1,14 +1,16 @@
-package main
+package cli
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func commandMapb(cfg *config, arg string) error {
+func commandMapb(cfg *Config, _ string) error {
 	if cfg.previousLocationAreasURL == nil {
 		println("You're already at the beginning of the list.")
 		return nil
 	}
 
-	locationAreasResp, err := cfg.pokeapiClient.GetLocationAreas(cfg.previousLocationAreasURL)
+	locationAreasResp, err := cfg.Client.GetLocationAreas(cfg.previousLocationAreasURL)
 	if err != nil {
 		return err
 	}

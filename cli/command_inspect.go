@@ -1,13 +1,15 @@
-package main
+package cli
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func commandInspect(cfg *config, name string) error {
+func commandInspect(cfg *Config, name string) error {
 	if name == "" {
 		return fmt.Errorf("no pokemon name provided")
 	}
 
-	pokemon, ok := cfg.caughtPokemons[name]
+	pokemon, ok := cfg.CaughtPokemons[name]
 	if !ok {
 		return fmt.Errorf("%v was not found in caught pokemons", name)
 	}

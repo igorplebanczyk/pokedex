@@ -1,4 +1,4 @@
-package main
+package cli
 
 import (
 	"bufio"
@@ -10,7 +10,7 @@ import (
 type commands struct {
 	name        string
 	description string
-	callback    func(*config, string) error
+	callback    func(*Config, string) error
 }
 
 func getCommands() map[string]commands {
@@ -63,7 +63,7 @@ func standardizeInput(input string) []string {
 	return strings.Fields(input)
 }
 
-func startREPL(cfg *config) {
+func StartREPL(cfg *Config) {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for {

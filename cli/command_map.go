@@ -1,9 +1,11 @@
-package main
+package cli
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func commandMap(cfg *config, arg string) error {
-	resp, err := cfg.pokeapiClient.GetLocationAreas(cfg.nextLocationAreasURL)
+func commandMap(cfg *Config, _ string) error {
+	resp, err := cfg.Client.GetLocationAreas(cfg.nextLocationAreasURL)
 	if err != nil {
 		return err
 	}

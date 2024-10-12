@@ -1,23 +1,23 @@
-package pokecache
+package cache
 
 import (
 	"sync"
 	"time"
 )
 
-type CacheEntry struct {
+type Entry struct {
 	createdAt time.Time
 	val       []byte
 }
 
 type Cache struct {
-	entries map[string]CacheEntry
+	entries map[string]Entry
 	mu      sync.Mutex
 }
 
 func NewCache(interval time.Duration) *Cache {
 	newCache := Cache{
-		entries: make(map[string]CacheEntry),
+		entries: make(map[string]Entry),
 	}
 	go newCache.reapLoop(interval)
 	return &newCache
@@ -27,7 +27,7 @@ func (c *Cache) Add(key string, val []byte) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	c.entries[key] = CacheEntry{
+	c.entries[key] = Entry{
 		createdAt: time.Now().UTC(),
 		val:       val,
 	}

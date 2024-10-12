@@ -1,4 +1,4 @@
-package pokeapi
+package api
 
 type PokemonResp struct {
 	Abilities []struct {

@@ -1,4 +1,4 @@
-package main
+package cli
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 
 func catchProbability(baseXP int) float64 {
 	const k = -0.01
-	const midpoint = 162 // Idk anything about pokemon, but the highest base xp I found was 324
+	const midpoint = 162 // I don't know anything about Pokémon, but the highest base xp I found was 324
 
 	return 1 / (1 + math.Exp(-k*(float64(baseXP)-midpoint)))
 }
@@ -21,12 +21,12 @@ func attemptToCatch(baseXP int) bool {
 	return randomRoll <= probability
 }
 
-func commandCatch(cfg *config, pokemon string) error {
+func commandCatch(cfg *Config, pokemon string) error {
 	if pokemon == "" {
 		return fmt.Errorf("a pokemon name is required")
 	}
 
-	resp, err := cfg.pokeapiClient.GetPokemon(&pokemon)
+	resp, err := cfg.Client.GetPokemon(&pokemon)
 	if err != nil {
 		return err
 	}
@@ -38,7 +38,7 @@ func commandCatch(cfg *config, pokemon string) error {
 
 	if attemptToCatch(resp.BaseExperience) {
 		fmt.Printf("Success! %v was caught and added to your Pokedex!\n", resp.Name)
-		cfg.caughtPokemons[resp.Name] = resp
+		cfg.CaughtPokemons[resp.Name] = resp
 	} else {
 		fmt.Printf("Oh no! %v broke free!\n", resp.Name)
 	}

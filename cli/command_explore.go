@@ -1,13 +1,15 @@
-package main
+package cli
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func commandExplore(cfg *config, location string) error {
+func commandExplore(cfg *Config, location string) error {
 	if location == "" {
 		return fmt.Errorf("location is required")
 	}
 
-	resp, err := cfg.pokeapiClient.GetLocationAreaDetails(&location)
+	resp, err := cfg.Client.GetLocationAreaDetails(&location)
 	if err != nil {
 		return err
 	}
